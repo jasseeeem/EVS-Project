@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block title %}
+        <title>{{ title }}</title>
+{% endblock %}
+{% block head %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="desciption" content="Mapmyindia Place Picker Plugin">
+        <script src="https://apis.mapmyindia.com/advancedmaps/v1/1y9akvcwj3e6czmj7n4mc4seupq15nbh/map_load?v=1.3"></script>
+        <script src="https://apis.mapmyindia.com/advancedmaps/api/1y9akvcwj3e6czmj7n4mc4seupq15nbh/map_sdk_plugins"></script>
+{% endblock %}
+{% block style %}
+<style>
+    body{
+        margin: 10px
+    }
+    #map{
+        width: 50vh; 
+        height: 50vh;
+        margin:0;
+        padding: 0;
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+    <body>
+        <div class="maindiv">
+            <!-- <div id="map"></div>
+            <script>
+                /*Map Initialization*/
+                var map = new MapmyIndia.Map('map', {center: [28.62, 77.09], zoom: 2, search: false});
+                var theMarker = {};
+                /*Place Picker plugin initialization*/
+                map.on('click', function(e){
+                    lat = e.latlng.lat;
+                    lon = e.latlng.lng;
+                    //Clear existing marker, 
+                    if (theMarker != undefined) {
+                        map.removeLayer(theMarker);
+                    };
+                    theMarker = L.marker([lat,lon]).addTo(map);  
+                });
+            </script> -->
+            <form action="#" method="POST" class="just">
+                <div class="form-group row">
+                    <label for="DCSS" class="col-sm-3 col-form-label">DC System Size (kW):</label>
+                    <div class="col-sm-4">
+                        <input type="number" id="DCSS" name="DCSS" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="moduletype" class="col-sm-3 col-form-label">Module Type:</label>
+                    <div class="col-sm-4">
+                        <select name="moduleoptions" id="moduleoptions" class="form-control">
+                            <option value="standard">Standard</option>
+                            <option value="premium">Premium</option>
+                            <option value="thinlayer">Thin Layer</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="arraytype" class="col-sm-3 col-form-label">Array Type:</label>
+                    <div class="col-sm-4">
+                        <select name="arrayoptions" id="arrayoptions" class="form-control">
+                            <option value="fixedor">Fixed (Open Rack)</option>
+                            <option value="fixedrm">Fixed (Roof Mount)</option>
+                            <option value="at1">1-Axis Tracking</option>
+                            <option value="ab1">1-Axis Backtracking</option>
+                            <option value="at2">2-Axis Tracking</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="SL" class="col-sm-3 col-form-label">System Losses (%):</label>
+                    <div class="col-sm-4">
+                        <input type="number" id="SL" name="SL" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="tilt" class="col-sm-3 col-form-label">Tilt (Degree):</label>
+                    <div class="col-sm-4">
+                        <input type="numbr" id="tilt" name="tilt" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="azimuth" class="col-sm-3 col-form-label">Azimuth (Degree):</label>
+                    <div class="col-sm-4">
+                        <input type="number" id="azimuth" name="azimuth" class="form-control">
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <button type="Submit" id="btnSubmit" class="btn btn-primary center">Submit</button>
+                </div>
+            </form>
+        </div>
+{% endblock %}
