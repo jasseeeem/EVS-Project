@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% block title %}
+        <title>{{ title }}</title>
+{% endblock %}
+{% block head %}
+        <!-- <meta name="desciption" content="Mapmyindia Place Picker Plugin">
+        <script src="https://apis.mapmyindia.com/advancedmaps/v1/1y9akvcwj3e6czmj7n4mc4seupq15nbh/map_load?v=1.3"></script>
+        <script src="https://apis.mapmyindia.com/advancedmaps/api/1y9akvcwj3e6czmj7n4mc4seupq15nbh/map_sdk_plugins"></script> -->
+{% endblock %}
+{% block style %}
+<style>
+    /* body{
+        margin: 10px
+    } */
+    #map{
+        width: 50vh; 
+        height: 40vh;
+        margin:0;
+        padding: 0;
+    }
+    .maindiv{
+        width: 100vw;
+        display: grid;
+        place-items: center;
+    }
+    .main{
+        display: inline-block;
+    }
+    .buttonSubmit{
+        display:grid;
+        place-items: center;
+        margin-top: -20px;
+    }
+    #formw{
+        display: grid;
+        place-items: center;
+        max-width: 500px;
+        padding-top: 20px;
+    }
+    #labels-form{
+        color: white;
+    }
+    #text-bottom{
+        padding-top: 5px;
+        display: grid;
+        place-items: center;
+        color: white;
+        font-size: 0.8em;
+    }
+    .btn{
+        background-color: transparent;
+        transition: 0.3s ease;
+    }
+    .heading{
+        padding-top: 10px;
+        display: inline-block;
+        text-align: center;
+        color: white;
+    }
+    #map{
+        width: 400px;
+    }
+    @media screen and (max-width: 620px)
+    {
+        #map{
+            padding-top: 10px;
+            width:70%;
+        }
+        .main{
+            display: none;
+        }
+        .heading{
+            padding-top: 20px;
+        }
+        #formw{
+            width:70%;
+        }
+    }
+</style>
+{% endblock %}
+{% block content %}
+    <header>
+        <div class="main">
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li class="active"><a href="/calculator">Solar Calculator</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </div>
+        <div class="maindiv">
+            <div class="heading">
+                <h2>Solar Efficiency Calculator</h2>
+            </div>
+            <!-- <div id="map"></div>
+            <script>
+                /*Map Initialization*/
+                var map = new MapmyIndia.Map('map', {center: [28.62, 77.09], zoom: 2, search: false});
+                var theMarker = {};
+                /*Place Picker plugin initialization*/
+                map.on('click', function(e){
+                    lat = e.latlng.lat;
+                    lon = e.latlng.lng;
+                    //Clear existing marker
+                    if (theMarker != undefined) {
+                        map.removeLayer(theMarker);
+                    };
+                    theMarker = L.marker([lat,lon]).addTo(map);  
+                    var loc = {
+                        lat: lat,
+                        lon: lon
+                    }
+                    console.log(loc);
+                    function submit_entry(){
+                        var entry = {
+                            lat: lat.value,
+                            lon: lon.value
+                        };
+                    }
+                    console.log(entry);
+                });
+            </script> -->
+            <form id="formw" action="{{ url_for('calculator') }}", name="CalculateForm" method="POST", class="form-group">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+                    <div class = "form-group row">
+                        <label for="RoofArea" id="labels-form" class="col-sm col-form-label">Roof Top Area (m<sup>2</sup>):</label>
+                        <div class="col-sm">
+                            {{ form.area(class="form-control") }}
+                        </div>
+                    </div>
+                    <div class = "form-group row">
+                        <label for="RoofArea" id="labels-form" class="col-sm col-form-label">Module Type:</label>
+                        <div class="col-sm">
+                            {{ form.modtype(class="form-control") }}
+                        </div>
+                    </div>
+                    <div class = "form-group row">
+                        <label for="arraytype" id="labels-form" class="col-sm col-form-label">Array Type:</label>
+                        <div class="col-sm">
+                            {{ form.arrtype(class="form-control") }}
+                        </div>
+                    </div>
+                    <div class = "form-group row">
+                        <label for="bill" id="labels-form" class="col-sm col-form-label">Yearly Electricity charge:</label>
+                        <div class="col-sm">
+                            {{ form.bill(class="form-control") }}
+                        </div>
+                    </div>
+                    <div class = "form-group row">
+                        <label for="tilt" id="labels-form" class="col-sm col-form-label">Tilt (Degree):</label>
+                        <div class="col-sm">
+                            {{ form.tilt(class="form-control") }}
+                            <h6 id="text-bottom">Tilt is 0° for a flat roof</h6>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="buttonSubmit">
+                    {{ form.submit(class="btn") }}
+                </div>
+            </form>
+        </div>
+    </header>
+{% endblock %}

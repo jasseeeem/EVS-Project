@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block title %}
+        <title>{{ title }}</title>
+{% endblock %}
+{% block head %}
+{% endblock %}
+{% block style %}
+<style>
+    /* body{
+        margin: 10px
+    } */
+    .heading{
+        padding-top: 10px;
+        display: inline-block;
+        text-align: center;
+        color: white;
+    }
+    .graph{
+        padding-top: 20px;
+        display: inline-block;
+        padding-bottom: 20px;
+    }
+    .result{
+        /* background-color: wheat; */
+        width: 100vw;
+        display: grid;
+        place-items: center;
+        padding-bottom: 50px;
+        padding-left: -20px;
+    }
+    img {
+    border-radius: 1%;
+    }
+    h4{
+        /* padding-top: 20px; */
+        color: white;
+    }
+    h6{
+        color: white;
+    }
+    .text{
+        width:600px;
+        text-align: justify;
+    }
+    a{
+        color: lightskyblue;
+    }
+    @media screen and (max-width: 620px)
+    {
+        .main{
+            display: none;
+        }
+    }
+</style>
+{% endblock %}
+{% block content %}
+    <header>
+        <div class="main">
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="/calculator">Solar Calculator</a></li>
+                <li class="active"><a href="/about">About</a></li>
+            </ul>
+        </div>
+        <div class = "result">
+            <div class="heading">
+                <h2>About</h2>
+            </div>
+            <h4><u></u></h4>
+            <br>
+            <h6 class="text">This website was made as part of the EVS project titled "Feasibility of Solar Power in India"</h6>
+            <br>
+            <h6 class="text">Members:</h6>
+            <h6 class="text">Varghese George - B190714Cs<br>Sachin Thomas - B190738CS<br>Muhammed Jaseem - B190703CS<br>Abin Jacob John - B190011CS</h6>
+            <br>
+            <h6 class="text">Code:</h6>
+            <h6 class="text">Click <a href="https://git.io/Jt7nX">here</a></h6>
+        </div>
+        </div>
+    </header>
+{% endblock %}
