@@ -21,7 +21,7 @@ class CalculateForm(FlaskForm):
 @app.route('/')
 @app.route("/home")
 def home():
-    return render_template('index.html', title='SOLAR')
+    return render_template('index.html', title='SOLAR FOR INDIA')
 
 @app.route('/calculator', methods=['GET', 'POST'])
 def calculator():
