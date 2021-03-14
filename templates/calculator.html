@@ -100,6 +100,10 @@
                 map.on('click', function(e){
                     lat = e.latlng.lat;
                     lon = e.latlng.lng;
+
+                    document.getElementById('latfield').value=lat;
+                    document.getElementById('lonfield').value=lon;
+
                     //Clear existing marker
                     if (theMarker != undefined) {
                         map.removeLayer(theMarker);
@@ -110,7 +114,7 @@
                         lon: lon
                     }
                     console.log(loc);
-                    function submit_entry(){
+                    function submit_entry() {
                         var entry = {
                             lat: lat.value,
                             lon: lon.value
@@ -152,6 +156,12 @@
                             {{ form.tilt(class="form-control") }}
                             <h6 id="text-bottom">Tilt is 0° for a flat roof</h6>
                         </div>
+                    </div>
+                    <div class = "invisible">
+                        {{ form.lat(id="latfield", class="form-control") }}
+                    </div>
+                    <div class = "invisible">
+                        {{ form.lon(id="lonfield", class="form-control") }}
                     </div>
                 </fieldset>
                 <div class="buttonSubmit">

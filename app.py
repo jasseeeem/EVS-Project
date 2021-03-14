@@ -1,9 +1,10 @@
 from flask import Flask, request, make_response, flash, redirect, url_for, render_template, session
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired
-from wtforms import validators, SubmitField, TextField, FloatField, SelectField
+from wtforms import validators, StringField, SubmitField, TextField, FloatField, SelectField
 import os
 from utils import *
+import requests
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dfihhbgcuii82fer'
@@ -16,6 +17,8 @@ class CalculateForm(FlaskForm):
     arrtype = SelectField('Array Type', choices=ARRAYTYPE, validators=(validators.DataRequired(),))
     tilt = FloatField('Tilt', validators=(validators.DataRequired(),))
     bill = FloatField('Current Electricity Bill', validators=(validators.DataRequired(),))
+    lat = FloatField('Lat')
+    lon = FloatField('Lon')
     submit = SubmitField('Calculate')
 
 @app.route('/')
@@ -27,18 +30,24 @@ def home():
 def calculator():
     form = CalculateForm()
     if request.method=='POST':
-        return redirect(url_for('results', area = request.form['area'], efficiency = request.form['modtype'], 
-                                    extra = request.form['arrtype'], tilt = request.form['tilt'], bill = request.form['bill']))
+        session['area'] = request.form['area']
+        session['efficiency'] = request.form['modtype']
+        session['extra'] = request.form['arrtype']
+        session['tilt'] = request.form['tilt']
+        session['bill'] = request.form['bill']
+        session['lat'] = request.form['lat']
+        session['lon'] = request.form['lon']
+        return redirect(url_for('results'))
     return render_template('calculator.html', title='Solar Calculator', form=form)
 
 @app.route('/results', methods=['GET', 'POST'])
 def results():
     
-    area=float(request.args.get('area')), 
-    efficiency=float(request.args.get('efficiency'))
-    extra=float(request.args.get('extra'))
-    tilt=float(request.args.get('tilt'))
-    bill=float(request.args.get('bill'))
+    area=float(session['area']), 
+    efficiency=float(session['efficiency'])
+    extra=float(session['extra'])
+    tilt=float(session['tilt'])
+    bill=float(session['bill'])
     LATITUDE = 10.8505
 
     try:
@@ -75,8 +84,28 @@ def results():
     returnEnergyPlot(area[0], efficiency, panelYield)
     crosspoint = returnPlot2(costOfInstall, float(bill), 0.1)
 
-    print(costOfInstall)
-    return render_template('results.html', title = 'Results', year=crosspoint)
+    # api-endpoint
+    URL = "https://revgeocode.search.hereapi.com/v1/revgeocode"
+    #API key
+    api_key = 'DPOYqhI9yf4YWknmGecSg-Jqe9MaKZGi7jZkxz8WNbg'
+
+    # Defining a params dictionary for the parameters to be sent to the API 
+    PARAMS = {
+                'at': '{},{}'.format(session['lat'], session['lon']),
+                'apikey': api_key
+            }
+
+    # Sending get request and saving the response as response object 
+    r = requests.get(url = URL, params = PARAMS) 
+    
+    # Extracting data in json format 
+    data = r.json() 
+
+    #Taking out title from JSON
+    place = data['items'][0]['address']['city']
+    state = data['items'][0]['address']['state'] 
+
+    return render_template('results.html', title = 'Results', year=crosspoint, place=place, state=state)
 
 @app.route('/about', methods=['GET', 'POST'])
 def about():

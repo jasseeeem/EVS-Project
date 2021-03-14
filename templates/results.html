@@ -46,6 +46,9 @@
             display: none;
         }
     }
+    #note{
+        padding-top: 10px;
+    }
 </style>
 {% endblock %}
 {% block content %}
@@ -64,7 +67,7 @@
             </div>
             <h4><u>Daily Solar Energy Production</u></h4>
             <br>
-            <h6 class="text">The following graph shows the predicted amount of energy that can be produced from the solar panel everyday according to the values provided. As it can be seen here, an average household uses 2 to 3 kWh per day.</h6>
+            <h6 class="text">The following graph shows the predicted amount of energy that can be produced from the solar panel everyday at {{ place }}, {{ state }} according to the values. As it can be seen here, an average household uses 2 to 3 kWh per day.</h6>
             <br>
             <h6 class="text">The extra power produced can either be stored in a battery for using during nights or can be sold to the electricity board generating revenue.</h6>
             <div class="graph">
@@ -76,7 +79,7 @@
             <div class="graph">
                 <img width="600" src="static\pictures\output_2.png">
             </div>
-            <h6 class="text">Note: The data provided in the above graphs may not be 100% realistic due to the changing prices and other environmental factors. We recommend you talk with an expert before making decisions.</h6>
+            <h6 class="text" id="note">Note: The data provided in the above graphs may not be 100% realistic due to the changing prices and other environmental factors. We recommend you talk with an expert before making decisions.</h6>
             
         </div>
     </header>
